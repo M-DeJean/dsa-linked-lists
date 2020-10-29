@@ -1,3 +1,10 @@
+class _Node {
+    constructor(value, next) {
+        this.value = value;
+        this.next = next;
+    }
+}
+
 class LinkedList {
     constructor() {
         this.head = null;
@@ -42,7 +49,7 @@ class LinkedList {
         return currNode;
     }
 
-    remove(item){ 
+    remove(item) {
         // If the list is empty
         if (!this.head) {
             return null;
@@ -68,4 +75,66 @@ class LinkedList {
         }
         previousNode.next = currNode.next;
     }
+
+    insertBefore(reference, data) {
+        let curr = this.head;
+
+        while (curr.next != null) {
+            if (curr.next.value == reference) {
+                let newNode = new _Node(data)
+                newNode.next = curr.next;
+                curr.next = newNode;
+                return;
+            }
+
+            curr = curr.next;
+        }
+    }
+
+    insertAfter(reference, data) {
+        let curr = this.head;
+
+        while (curr.next != null) {
+            if (curr.value == reference) {
+                let newNode = new _Node(data)
+                newNode.next = curr.next;
+                curr.next = newNode;
+                return;
+            }
+
+            curr = curr.next;
+        }
+    }
+    insertAt(reference, position) {
+        let curr = this.head;
+        let count = 0;
+        while (count !== position - 1) {
+            count++;
+            curr = curr.next;
+        }
+
+        let newNode = new _Node(reference, null);
+        newNode = curr.next;
+        newNode.next = curr.next.next;
+    }
 }
+
+function main() {
+
+    let SLL = new LinkedList();
+
+    SLL.insertFirst('Apollo')
+    SLL.insertLast('Boomer')
+    SLL.insertLast('Helo')
+    SLL.insertLast('Husker')
+    SLL.insertLast('Starbuck')
+    SLL.insertLast('Tauhida')
+    SLL.remove('Helo')
+    SLL.insertBefore('Boomer', 'Malik')
+    SLL.insertAfter('Malik', 'Will')
+    SLL.insertAt('Josh', 1)
+    console.log(SLL.head)
+
+}
+
+main()
